@@ -1,4 +1,5 @@
 import React from 'react' ;
+import GeneralTable from '../components/Table' ;
 
 export default class Home extends React.Component {
 	
@@ -14,6 +15,9 @@ export default class Home extends React.Component {
 					<br />
 					<p>To keep somebody else from getting scammed by your landlord, you can denounce them here.
 					It will help future tenants making their choice.</p>
+				</div>
+				<div className="info-container" >
+					<GeneralTable />
 				</div>
 			</div>
 		);

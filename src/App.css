@@ -81,9 +81,10 @@ body {
 	position: relative;
 	background-color: rgba( 255, 255, 255, 0.85 );
 	border-radius: 10px;
-	padding: 20px;
-	width: 90%;
-	top: calc( 70px + 5vw );
+	padding: 25px;
+	width: calc( 90% - 50px );
+	top: calc( 35px + 5vw );
+	margin-top: 35px;
 	left: 50%;
 	transform: translateX( -50% );
 }
