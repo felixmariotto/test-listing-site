@@ -1,16 +1,26 @@
 
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
 @font-face {
   font-family: 'title';
   src: local('title'), url(./fonts/Demagogue.otf) format('opentype');
 }
 
+@font-face {
+  font-family: 'general';
+  src: local('general'), url(./fonts/ModernSans-Light.otf) format('opentype');
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: general;
+}
+
 h1 {
 	font-family: title
+}
+
+p {
+	font-size: 1.15em;
 }
 
 body {
@@ -69,8 +79,9 @@ body {
 
 .info-container {
 	position: relative;
-	background-color: rgba( 205, 255, 255, 0.7 );
-	height: 120vh;
+	background-color: rgba( 255, 255, 255, 0.85 );
+	border-radius: 10px;
+	padding: 20px;
 	width: 90%;
 	top: calc( 70px + 5vw );
 	left: 50%;
