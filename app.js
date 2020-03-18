@@ -81,8 +81,8 @@ io.on('connection', async (socket)=> {
 		var postgresClient = await POOL.connect();
 
 		postgresClient.query(`SELECT * FROM landlords
-							  WHERE (name ~ '(${ message })')
-							  OR (address ~ '(${ message })')
+							  WHERE (name ~* '(${ message })')
+							  OR (address ~* '(${ message })')
 							  ORDER BY id DESC`).then( (data)=> {
 
 							  	socket.emit( 'tableInfo', data.rows );
