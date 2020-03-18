@@ -78,6 +78,23 @@ io.on('connection', async (socket)=> {
 
 	//
 
+	socket.on('search', async (message)=> {
+
+		var postgresClient = await POOL.connect();
+
+		postgresClient.query(`SELECT * FROM landlords
+							  WHERE name LIKE '${ message }%'`).then( (data)=> {
+
+							  	console.log('match length : ', data.rows.length );
+
+							  	socket.emit( 'tableInfo', data.rows );
+
+							 });
+
+	});
+
+	//
+
 	async function sendTableInfo() {
 
 		var postgresClient = await POOL.connect();
@@ -88,6 +105,8 @@ io.on('connection', async (socket)=> {
 			socket.emit( 'tableInfo', data.rows );
 
 		});
+
+		postgresClient.release();
 
 	};
 
