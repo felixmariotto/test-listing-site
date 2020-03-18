@@ -36,6 +36,8 @@ io.on('connection', (socket)=> {
 
 	console.log('client connected');
 
-	socket.emit( 'test', 'prout' );
+	socket.on('landlordCredentials', (message)=> {
+		console.log(message);
+	});
 
 });

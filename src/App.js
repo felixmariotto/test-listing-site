@@ -7,25 +7,24 @@ import Home from './pages/Home' ;
 import Error from './pages/Error' ;
 
 import Navbar from './components/Navbar' ;
+import SocketContext from './components/socket-context';
+
+const socket = socketIOClient();
 
 export default class App extends React.Component {
-
-	componentDidMount() {
-		console.log('mounted')
-		const socket = socketIOClient();
-		socket.on( "test", ()=> { console.log('message from server') } )
-	}
 
 	render() {
 
 		return (
-		    <div className="App">
-		    	<Switch>
-		    		<Route exact path='/' component={ Home } />
-		    		<Route component={ Error } />
-		    	</Switch>
-		    	<Navbar />
-		    </div>
+			<SocketContext.Provider value={ socket } >
+			    <div className="App">
+			    	<Switch>
+			    		<Route exact path='/' component={ Home } />
+			    		<Route component={ Error } />
+			    	</Switch>
+			    	<Navbar />
+			    </div>
+		    </SocketContext.Provider>
 		);
 
 	};

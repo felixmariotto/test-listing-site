@@ -1,7 +1,8 @@
 import React from 'react' ;
 import TextField from '@material-ui/core/TextField';
+import SocketContext from './socket-context' ;
 
-export default class ScumInput extends React.Component {
+class ScumInput extends React.Component {
 
 	constructor() {
 
@@ -66,7 +67,13 @@ export default class ScumInput extends React.Component {
 			 this.state.address.length !== 0 &&
 			 this.state.amount.length !== 0 ) {
 
-			console.log( 'input valid' );
+			let state = {
+				name: this.state.name,
+				address: this.state.address,
+				amount: this.state.amount
+			};
+
+			this.props.socket.emit('landlordCredentials', state );
 
 		};
 
@@ -118,3 +125,19 @@ export default class ScumInput extends React.Component {
 	};
 
 };
+
+
+const ScumInputWithSocket = function( props ) {
+
+	return (
+
+		<SocketContext.Consumer>
+			{ socket => <ScumInput {...props} socket={socket} /> }
+		</SocketContext.Consumer>
+
+	);
+
+};
+
+
+export default ScumInputWithSocket ;
