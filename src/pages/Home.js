@@ -12,7 +12,11 @@ export default class Home extends React.Component {
 			<div>
 				<Info mustShow={ !this.props.isInSearch } />
 				<div className="info-container" >
-					<h2>Last scums denounced:</h2>
+					<h2>{
+						this.props.isInSearch ?
+							'Found these scums :' :
+							'Last scums denounced :'
+					}</h2>
 					<br />
 					<GeneralTable />
 				</div>

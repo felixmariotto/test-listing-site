@@ -54,8 +54,6 @@ io.on('connection', async (socket)=> {
 
 	socket.on('landlordCredentials', async (message)=> {
 
-		console.log( 'credentials received: ', message );
-
 		var postgresClient = await POOL.connect();
 
 		postgresClient.query(`INSERT INTO landlords (
@@ -83,11 +81,15 @@ io.on('connection', async (socket)=> {
 		var postgresClient = await POOL.connect();
 
 		postgresClient.query(`SELECT * FROM landlords
-							  WHERE name LIKE '${ message }%'`).then( (data)=> {
+							  WHERE (name ~ '(${ message })')
+							  OR (address ~ '(${ message })')
+							  ORDER BY id DESC`).then( (data)=> {
 
 							  	socket.emit( 'tableInfo', data.rows );
 
 							 });
+
+		postgresClient.release();
 
 	});
 
