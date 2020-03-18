@@ -46,6 +46,12 @@ io.on('connection', async (socket)=> {
 
 	console.log('client connected');
 
+	//
+
+	sendTableInfo();
+
+	//
+
 	socket.on('landlordCredentials', async (message)=> {
 
 		console.log( 'credentials received: ', message );
@@ -60,8 +66,30 @@ io.on('connection', async (socket)=> {
 								 '${ message.name }',
 								 '${ message.address }',
 								 '${ message.amount }'
-								)`);
+								)`).then( ()=> {
+
+									sendTableInfo();
+									
+								});
+
+		postgresClient.release();
 
 	});
 
+	//
+
+	async function sendTableInfo() {
+
+		var postgresClient = await POOL.connect();
+
+		postgresClient.query(`SELECT * FROM landlords`).then( (data)=> {
+
+			socket.emit( 'tableInfo', data.rows );
+
+		});
+
+	};
+
 });
+
+
