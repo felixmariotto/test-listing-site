@@ -77,6 +77,10 @@ class ScumInput extends React.Component {
 
 			this.props.socket.emit('landlordCredentials', state );
 
+			document.getElementById('name').value = '' ;
+			document.getElementById('address').value = '' ;
+			document.getElementById('amount').value = '' ;
+
 		};
 
 	};
@@ -116,7 +120,7 @@ class ScumInput extends React.Component {
 						<TextField
 							error={ this.state.errorAmount }
 							id="amount"
-							label='Amount of money robbed'
+							label='Amount robbed (hkd)'
 							onChange={ this.handleChange }
 						/>
 					</div>

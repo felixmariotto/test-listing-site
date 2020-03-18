@@ -69,7 +69,7 @@ io.on('connection', async (socket)=> {
 								)`).then( ()=> {
 
 									sendTableInfo();
-									
+
 								});
 
 		postgresClient.release();
@@ -82,7 +82,8 @@ io.on('connection', async (socket)=> {
 
 		var postgresClient = await POOL.connect();
 
-		postgresClient.query(`SELECT * FROM landlords`).then( (data)=> {
+		postgresClient.query(`SELECT * FROM landlords
+							  ORDER BY id DESC`).then( (data)=> {
 
 			socket.emit( 'tableInfo', data.rows );
 

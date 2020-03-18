@@ -12,6 +12,7 @@ export default class Home extends React.Component {
 					<h2>Denounce your landlord</h2>
 					<br/>
 					<p><strong>Did you get robbed of your deposit ?</strong></p>
+					<br/>
 					<p>You are not alone: every day in Hong Kong this kind of abuse occurs unpunished.</p>
 					<br />
 					<p>To keep somebody else from getting scammed by your landlord, you can denounce them here.
