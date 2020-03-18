@@ -12,14 +12,24 @@ class Navbar extends React.Component {
 
 		this.handleChange = this.handleChange.bind( this );
 
-	}
+	};
 
 
 	handleChange(e) {
 
 		this.props.socket.emit('search', e.target.value );
 
-	}
+		if ( e.target.value.length > 0 ) {
+
+			this.props.setSearchState( true );
+
+		} else {
+
+			this.props.setSearchState( false );
+
+		};
+
+	};
 
 
 	render() {

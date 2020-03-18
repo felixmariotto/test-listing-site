@@ -85,8 +85,6 @@ io.on('connection', async (socket)=> {
 		postgresClient.query(`SELECT * FROM landlords
 							  WHERE name LIKE '${ message }%'`).then( (data)=> {
 
-							  	console.log('match length : ', data.rows.length );
-
 							  	socket.emit( 'tableInfo', data.rows );
 
 							 });

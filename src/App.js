@@ -13,16 +13,40 @@ const socket = socketIOClient();
 
 export default class App extends React.Component {
 
+	constructor() {
+
+		super();
+
+		this.state = {
+			isInSearch: false
+		};
+
+		this.setSearchState = this.setSearchState.bind( this );
+
+	};
+
+	setSearchState( bool ) {
+
+		this.setState({
+			isInSearch: bool
+		});
+
+	};
+
 	render() {
 
 		return (
 			<SocketContext.Provider value={ socket } >
 			    <div className="App">
 			    	<Switch>
-			    		<Route exact path='/' component={ Home } />
+			    		<Route 
+			    			exact
+			    			path='/'
+			    			render={ props=> <Home {...props} isInSearch={ this.state.isInSearch } /> }
+			    		/>
 			    		<Route component={ Error } />
 			    	</Switch>
-			    	<Navbar />
+			    	<Navbar setSearchState={ this.setSearchState } />
 			    </div>
 		    </SocketContext.Provider>
 		);
