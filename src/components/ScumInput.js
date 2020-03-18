@@ -1,6 +1,8 @@
 import React from 'react' ;
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import SocketContext from './socket-context' ;
+import {MdSend} from "react-icons/md";
 
 class ScumInput extends React.Component {
 
@@ -117,6 +119,14 @@ class ScumInput extends React.Component {
 							label='Amount of money robbed'
 							onChange={ this.handleChange }
 						/>
+					</div>
+					<div className="input-element">
+						<Button
+							variant="contained"
+							endIcon={ <MdSend/> }
+							size="large"
+							onClick={ this.validateInput }
+						>Send</Button>
 					</div>
 				</div>
 			</div>

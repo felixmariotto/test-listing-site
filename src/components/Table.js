@@ -29,9 +29,6 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, address, amount) {
-  return { name, address, amount };
-}
 
 export default function GeneralTable() {
 
@@ -46,8 +43,6 @@ export default function GeneralTable() {
       { (socket)=> {
 
         socket.on('tableInfo', (message)=> {
-
-          console.log( message );
 
           setRows( message );
 
