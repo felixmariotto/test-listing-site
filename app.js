@@ -4,6 +4,14 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const socketIO = require('socket.io');
 
+const { Pool } = require('pg');
+const POOL = new Pool({
+	connectionString: process.env.DATABASE_URL,
+	ssl: true
+})
+
+const PORT = process.env.PORT || 8080;
+
 //
 
 console.log( 'production server' )
@@ -22,7 +30,9 @@ const app = express()
 	  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 	})
 
-	.listen(process.env.PORT || 8080)
+	.listen(PORT, ()=> {
+		console.log('app listening on port ' + PORT);
+	})
 
 
 
@@ -32,12 +42,26 @@ const app = express()
 
 const io = socketIO( app );
 
-io.on('connection', (socket)=> {
+io.on('connection', async (socket)=> {
 
 	console.log('client connected');
 
-	socket.on('landlordCredentials', (message)=> {
-		console.log(message);
+	socket.on('landlordCredentials', async (message)=> {
+
+		console.log( 'credentials received: ', message );
+
+		var postgresClient = await POOL.connect();
+
+		postgresClient.query(`INSERT INTO landlords (
+								 name,
+								 address,
+								 amount
+								) VALUES (
+								 '${ message.name }',
+								 '${ message.address }',
+								 '${ message.amount }'
+								)`);
+
 	});
 
 });
